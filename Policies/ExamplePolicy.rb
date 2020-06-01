@@ -13,4 +13,4 @@ default_source :supermarket, 'https://supermarket.chef.io'
 run_list 'app_inf::webserver'
 
 # Specify a custom source for a single cookbook:
-cookbook 'app_inf', '~> 0.4.0', :supermarket
+cookbook 'app_inf', '~> 0.3.0', :supermarket
