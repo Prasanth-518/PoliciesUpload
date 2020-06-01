@@ -1,0 +1,29 @@
+require 'rake/clean'
+require 'rake/packagetask'
+
+#linting test-kitchen
+task :lint do
+    sh "cookstyle -a"
+end
+#build policylock
+task build: [:lint,:clean] do
+    sh "chef install Policies/ExamplePolicy.rb"
+    sh "powershell.exe Move-Item -Path ./Policies/*.lock.json -Destination ."
+end
+
+#Archive lock file
+task :archive,[:verno] do |t,args|
+    sh "powershell.exe Compress-Archive *.lock.json ApachePolicy-#{args.verno}.zip"
+end
+
+#deploy to artifactory
+task :deploy,[:usr,:pswd] do |t,args|
+    sh "jfrog rt c rt-server-1 --url=https://192.168.33.20/artifactory --user=#{args.usr} --password=#{args.pswd}"
+    sh "jfrog rt u *.zip Policies"
+end
+
+#cleanup
+task :clean do
+    sh "powershell.exe Remove-Item Policies/*.lock.json"
+    sh "powershell.exe Remove-Item *.zip"
+end
