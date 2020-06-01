@@ -18,7 +18,7 @@ end
 
 #deploy to artifactory
 task :deploy,[:usr,:pswd] do |t,args|
-    sh "jfrog rt c rt-server-1 --url=https://192.168.33.20/artifactory --user=#{args.usr} --password=#{args.pswd}"
+    sh "jfrog rt c rt-server-1 --url=https://192.168.33.20:8080/artifactory --user=#{args.usr} --password=#{args.pswd}"
     sh "jfrog rt u *.zip Policies"
 end
 
