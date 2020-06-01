@@ -24,6 +24,6 @@ end
 
 #cleanup
 task :clean do
-    sh "powershell.exe Remove-Item Policies/*.lock.json"
+    sh "powershell.exe Remove-Item *.lock.json"
     sh "powershell.exe Remove-Item *.zip"
 end
