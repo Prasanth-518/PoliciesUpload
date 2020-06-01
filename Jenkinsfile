@@ -8,6 +8,7 @@ pipeline{
     stages{
         stage('build-deploy'){
             steps{
+                bat "chef env --chef-license accept"
                 bat "rake build"
                 bat "rake archive[0.0.%BUILD_NUMBER%]"
                 withVault([configuration: config,vaultSecrets: secrets]){
