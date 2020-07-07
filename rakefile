@@ -7,7 +7,7 @@ task :lint do
 end
 
 #Archive lock file
-task archive:[:verno]=>[:lint,:clean] do |t,args|
+task :archive,[:verno]=>[:clean] do |t,args|
     sh "powershell.exe Compress-Archive Policies/*.rb ApachePolicy-#{args.verno}.zip"
 end
 
