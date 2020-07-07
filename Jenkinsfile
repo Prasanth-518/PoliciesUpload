@@ -8,7 +8,6 @@ pipeline{
     stages{
         stage('build-deploy'){
             steps{
-                bat "rake build"
                 bat "rake archive[0.0.%BUILD_NUMBER%]"
                 withVault([configuration: config,vaultSecrets: secrets]){
                     bat "echo %vault_sec%"

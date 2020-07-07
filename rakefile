@@ -5,14 +5,10 @@ require 'rake/packagetask'
 task :lint do
     sh "cookstyle -a"
 end
-#build policylock
-task build: [:lint,:clean] do
-    sh "powershell.exe Move-Item -Path Policies/*.rb -Destination ."
-end
 
 #Archive lock file
-task :archive,[:verno] do |t,args|
-    sh "powershell.exe Compress-Archive *.lock.json ApachePolicy-#{args.verno}.zip"
+task archive:[:verno]=>[:lint,:clean] do |t,args|
+    sh "powershell.exe Compress-Archive Policies/*.rb ApachePolicy-#{args.verno}.zip"
 end
 
 #deploy to artifactory
@@ -23,6 +19,5 @@ end
 
 #cleanup
 task :clean do
-    sh "powershell.exe Remove-Item *.lock.json"
     sh "powershell.exe Remove-Item *.zip"
 end
