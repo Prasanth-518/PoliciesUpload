@@ -8,10 +8,10 @@ pipeline{
     stages{
         stage('build-deploy'){
             steps{
-                bat "cd C:/Jenkins/workspace/PolicyUpload ; rake archive[0.0.%BUILD_NUMBER%]"
+                //bat "cd C:/Jenkins/workspace/PolicyUpload ; rake archive[0.0.%BUILD_NUMBER%]"
                 withVault([configuration: config,vaultSecrets: secrets]){
-                    bat "echo %vault_sec%"
-                    bat "cd C:/Jenkins/workspace/PolicyUpload ; rake deploy[%username%,%pswd%]"
+                    bat "echo %usrname% %pswd%"
+                    //bat "cd C:/Jenkins/workspace/PolicyUpload ; rake deploy[%username%,%pswd%]"
                 }
             }
         }
