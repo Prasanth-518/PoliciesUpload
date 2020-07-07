@@ -7,8 +7,7 @@ task :lint do
 end
 #build policylock
 task build: [:lint,:clean] do
-    sh "chef install Policies/ExamplePolicy.rb"
-    sh "powershell.exe Move-Item -Path Policies/*.lock.json -Destination ."
+    sh "powershell.exe Move-Item -Path Policies/*.rb -Destination ."
 end
 
 #Archive lock file
