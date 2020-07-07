@@ -9,7 +9,7 @@ pipeline{
         stage('build-deploy'){
             steps{
                 //bat "cd C:/Jenkins/workspace/PolicyUpload && rake archive[0.0.%BUILD_NUMBER%]"
-                powershell(script: "cd C:/Jenkins/workspace/PolicyUpload && rake archive[0.0.${BUILD_NUMBER}]")
+                powershell(script: "cd C:/Jenkins/workspace/PolicyUpload ; rake archive[0.0.${BUILD_NUMBER}]")
                 withVault([configuration: config,vaultSecrets: secrets]){
                     //bat "cd C:/Jenkins/workspace/PolicyUpload && rake deploy[%username%,%pswd%]"
                     powershell(script:"cd C:/Jenkins/workspace/PolicyUpload ; rake deploy[${username},${pswd}]")
