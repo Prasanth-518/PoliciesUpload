@@ -8,10 +8,9 @@ pipeline{
     stages{
         stage('build-deploy'){
             steps{
-                bat "chef env --chef-license accept"
-                bat "rake archive[0.0.%BUILD_NUMBER%]"
+                bat "cd C:/Jenkins/workspace/PolicyUpload && rake archive[0.0.%BUILD_NUMBER%]"
                 withVault([configuration: config,vaultSecrets: secrets]){
-                    bat "rake deploy[%username%,%pswd%]"
+                    bat "cd C:/Jenkins/workspace/PolicyUpload && rake deploy[%username%,%pswd%]"
                 }
             }
         }
